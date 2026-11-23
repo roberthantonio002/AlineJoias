@@ -13,10 +13,36 @@
 <meta http-equiv="Content-Security-Policy" content="default-src 'self'; style-src 'self' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https:; script-src 'self'; connect-src 'none'; object-src 'none'; base-uri 'self'; form-action 'self';">
 
 <title>Aline Joias | Catálogo Exclusivo</title>
-<meta name="description" content="Catálogo de joias exclusivas da Aline Joias: conjuntos, colares e pulseiras selecionados com cuidado. Consulte disponibilidade e valores pelo WhatsApp.">
+<meta name="description" content="Catálogo de joias exclusivas da Aline Joias, selecionadas com cuidado e afeto. Consulte disponibilidade e valores pelo WhatsApp.">
 
+<!-- TROQUE https://SEU-SITE.com.br/ pelo endereço real onde o site está publicado (aparece várias vezes neste arquivo: use Ctrl+H no VS Code e substitua todas de uma vez) -->
+<link rel="canonical" href="https://alinejoias.pages.dev/">
+
+<!-- ÍCONE DA ABA -->
 <link rel="icon" type="image/png" href="image/logo.png">
 
+<!-- PRÉVIA AO COMPARTILHAR O LINK (WhatsApp, Instagram, Facebook, Telegram) -->
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Aline Joias">
+<meta property="og:locale" content="pt_BR">
+<meta property="og:title" content="Aline Joias | Catálogo Exclusivo">
+<meta property="og:description" content="Joias exclusivas selecionadas com cuidado e afeto. Conheça a coleção e consulte valores pelo WhatsApp.">
+<meta property="og:url" content="https://alinejoias.pages.dev/">
+<meta property="og:image" content="https://alinejoias.pages.dev/image/vendedora.jpg">
+<meta property="og:image:type" content="image/jpeg">
+<meta property="og:image:alt" content="Aline Borges, criadora da Aline Joias">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Aline Joias | Catálogo Exclusivo">
+<meta name="twitter:description" content="Joias exclusivas selecionadas com cuidado e afeto. Consulte valores pelo WhatsApp.">
+<meta name="twitter:image" content="https://alinejoias.pages.dev/image/vendedora.jpg">
+
+<!-- DADOS ESTRUTURADOS PARA O GOOGLE -->
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"JewelryStore","name":"Aline Joias","url":"https://alinejoias.pages.dev/","image":"https://alinejoias.pages.dev/image/vendedora.jpg","sameAs":["https://www.instagram.com/alineborges_acessoriosdeluxo"]}
+</script>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Montserrat:wght@400;500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="style.css">
 <script src="script.js" defer></script>
@@ -101,6 +127,12 @@
     </div>
 
     <div class="products" id="productsGrid"></div>
+    <noscript>
+      <p class="noscript-msg">
+        Para ver o catálogo, ative o JavaScript do navegador ou fale com a gente pelo
+        <a href="https://www.instagram.com/alineborges_acessoriosdeluxo" target="_blank" rel="noopener noreferrer">Instagram da loja</a>.
+      </p>
+    </noscript>
     <div class="load-more-wrap" id="loadMoreWrap"></div>
   </section>
 
@@ -127,19 +159,20 @@
   <!-- SOBRE A VENDEDORA -->
   <section class="about" id="sobre">
     <img
-      src="image/vendedora.png"
+      src="image/vendedora.jpg"
       alt="Aline Borges, criadora da marca"
       data-fallback="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=900"
       loading="lazy"
+      decoding="async"
     >
     <div>
       <span>Essência e Delicadeza</span>
       <h2>Olá, sou a Aline Borges</h2>
       <p>
-        Cada peça que você encontra por aqui carrega uma intenção: celebrar momentos,
-        realçar a sua beleza natural e contar histórias através do brilho.
+        Professora, mãe, esposa e, agora, empreendedora no universo das semijoias. Transformei uma paixão antiga em propósito: levar mais brilho, elegância e autoestima para o dia a dia das mulheres através de peças escolhidas com carinho.
         <br><br>
-        Seleciono cada detalhe pensando em transformar o cotidiano em algo extraordinário e cheio de afeto. Será um prazer fazer parte da sua história!
+       Cada peça que você encontra por aqui carrega uma intenção: celebrar momentos,
+        realçar a sua beleza natural e contar histórias através do brilho.
       </p>
       <div class="social-actions">
         <a href="https://www.instagram.com/aline_a_borges_" target="_blank" rel="noopener noreferrer" class="btn secondary">
@@ -173,22 +206,16 @@
     </div>
   </section>
 
- <!-- BANNER DE NOVIDADES -->
+  <!-- BANNER DE NOVIDADES -->
+  <div class="newsletter-banner">
+    <h3>Quer nos acompanhar nas redes sociais e receber todas as nossas novidades?</h3>
+    <p>Fique por dentro dos lançamentos exclusivos, bastidores e coleções limitadas.</p>
+    <a href="https://www.instagram.com/alineborges_acessoriosdeluxo" target="_blank" rel="noopener noreferrer" class="btn">
+      <img src="image/instagram.png" alt="" class="icon-instagram"> Instagram da Loja
+    </a>
+  </div>
 
-<div class="newsletter-banner">
-
-<h3>Quer nos acompanhar nas redes sociais e receber todas as nossas novidades?</h3>
-
-<p>Fique por dentro dos lançamentos exclusivos, bastidores e coleções limitadas.</p>
-
-<a href="https://www.instagram.com/alineborges_acessoriosdeluxo" target="_blank" rel="noopener noreferrer" class="btn">
-
-<img src="image/instagram.png" alt="" class="icon-instagram"> Instagram da Loja
-
-</a>
-
-</div>
-</main> 
+</main>
 
 <!-- RODAPÉ -->
 <footer>
