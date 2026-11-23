@@ -768,30 +768,53 @@ section {
   line-height: 1.6;
 }
 
-/* ---------- BANNER DE NOVIDADES ---------- */
+ /* ---------- BANNER DE NOVIDADES ---------- */
+
 .newsletter-banner {
-  background: var(--offwhite);
-  border: 1px solid var(--dourado-claro);
-  text-align: center;
-  padding: 60px 24px;
-  margin: 80px 8% 40px 8%;
-  border-radius: 3px;
+
+background: var(--offwhite);
+
+border: 1px solid var(--dourado-claro);
+
+text-align: center;
+
+padding: 60px 24px;
+
+margin: 80px 8% 40px 8%;
+
+border-radius: 3px;
+
 }
+
+
 
 .newsletter-banner h3 {
-  font-family: 'Cormorant Garamond', serif;
-  font-size: 40px;
-  font-weight: 500;
-  color: var(--cafe);
-  margin-bottom: 14px;
+
+font-family: 'Cormorant Garamond', serif;
+
+font-size: 40px;
+
+font-weight: 500;
+
+color: var(--cafe);
+
+margin-bottom: 14px;
+
 }
 
+
+
 .newsletter-banner p {
-  font-size: 15px;
-  color: var(--chumbo);
-  margin-bottom: 25px;
-  line-height: 1.8;
-}
+
+font-size: 15px;
+
+color: var(--chumbo);
+
+margin-bottom: 25px;
+
+line-height: 1.8;
+
+} 
 
 /* ---------- RODAPÉ ---------- */
 footer {
@@ -916,4 +939,28 @@ footer .privacy-note {
   .product:hover .product-img-wrap img {
     transform: none;
   }
+/* PREÇO E BOTÃO EXPANDIR COLEÇÃO */
+.product-price {
+  font-size: 1.15rem;
+  font-weight: 600;
+  color: #65351F;
+  margin: 4px 0 8px;
+}
+
+.modal-price {
+  font-size: 1.35rem;
+  font-weight: 600;
+  color: #65351F;
+  margin: 8px 0 12px;
+}
+
+.load-more-wrap {
+  text-align: center;
+  margin-top: 36px;
+}
+
+.load-more-wrap .btn {
+  cursor: pointer;
+}
+
 }

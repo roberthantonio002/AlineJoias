@@ -7,52 +7,57 @@
 /* ---------- CONFIGURAÇÕES ---------- */
 const WHATSAPP_NUMBER = '5549991023413';
 const FALLBACK_PRODUCT_IMG = 'https://images.unsplash.com/photo-1515562141207-7a88fb7ce338?w=700';
+const LIMITE_INICIAL = 4; // Quantidade de joias exibidas antes de clicar em "Ver mais"
 
 /* ---------- CATÁLOGO ----------
    Para esconder uma joia sem apagá-la: ativo: false
-   A mensagem do WhatsApp é gerada sozinha a partir do nome.
-   Se quiser uma mensagem diferente, acrescente whatsappText: '...' na joia. */
+   Adicione o campo price: 'R$ 89,90' em cada peça */
 const products = [
   {
     id: '1',
     ativo: true,
-    name: 'Conjunto Coração',
-    category: 'Conjuntos',
+    name: 'Brinco trevo zircônia',
+    category: 'Brincos',
+    price: 'R$ 64,98',
     tagline: 'A intensidade e o brilho combinados com a delicadeza do afeto.',
     desc: 'Ponto de luz central cercado por corações cravejados com acabamento impecável. Perfeito para marcar ocasiões especiais com muito charme.',
-    image: 'image/conjuntocoracao.png'
+    image: 'image/brincotrevo.jpg'
   },
   {
     id: '2',
     ativo: true,
-    name: 'Colar Brilhante',
-    category: 'Colares',
-    tagline: 'Formas fluidas e sofisticadas para o dia a dia.',
+    name: 'Brinco Snake',
+    category: 'Brincos',
+    price: 'R$ 84,90',
+    tagline: 'Contemporâneo e luxuoso.',
     desc: 'Design texturizado e marcante que une imponência contemporânea e leveza para o seu visual cotidiano.',
-    image: 'image/colarbrilhante.png'
+    image: 'image/brincosnake.jpg'
   },
   {
     id: '3',
     ativo: true,
-    name: 'Diamante Coração',
-    category: 'Colares',
+    name: 'Brinco trio estrela delicado',
+    category: 'Brincos',
+    price: 'R$ 89,90',
     tagline: 'Um símbolo clássico reimaginado com brilho intenso.',
     desc: 'Pingente sofisticado com harmonia perfeita entre o metal nobre e zircônias de alto padrão.',
-    image: 'image/diamentecoracao.png'
+    image: 'image/brincotrio.jpg'
   },
   {
     id: '4',
     ativo: true,
-    name: 'Pulseira Elegance',
-    category: 'Pulseiras',
+    name: 'Brinco argola grande cravejado em zircônia',
+    category: 'Brincos',
+    price: 'R$ 89,90',
     tagline: 'Elegância inspirada pelas linhas e detalhes sofisticados.',
     desc: 'Peça delicada e moderna para valorizar o seu pulso com extrema sofisticação em qualquer ocasião.',
-    image: 'image/pulseira.png'
+    image: 'image/brincoargola.jpg'
   }
 ];
 
 /* ---------- ELEMENTOS DA PÁGINA ---------- */
 const grid = document.getElementById('productsGrid');
+const loadMoreWrap = document.getElementById('loadMoreWrap');
 const searchInput = document.getElementById('searchInput');
 const filterWrap = document.querySelector('.filter-dropdown-wrap');
 const filterToggle = document.getElementById('filterToggle');
@@ -64,11 +69,13 @@ const modalImg = document.getElementById('modalImg');
 const modalCategory = document.getElementById('modalCategory');
 const modalTitle = document.getElementById('modalTitle');
 const modalTagline = document.getElementById('modalTagline');
+const modalPrice = document.getElementById('modalPrice');
 const modalDesc = document.getElementById('modalDesc');
 const modalWhatsapp = document.getElementById('modalWhatsappBtn');
 const modalClose = document.getElementById('modalClose');
 
 let activeCategory = 'Todas';
+let mostrarTodas = false;
 let ultimoFoco = null;
 
 /* ---------- FUNÇÕES AUXILIARES ---------- */
@@ -81,7 +88,6 @@ function escapeHTML(texto) {
     .replace(/'/g, '&#39;');
 }
 
-// Busca sem diferenciar maiúsculas nem acentos ("cólar" encontra "colar")
 function normalizar(texto) {
   return String(texto)
     .toLowerCase()
@@ -90,8 +96,9 @@ function normalizar(texto) {
 }
 
 function mensagemWhatsApp(p) {
-  return p.whatsappText ||
-    `Olá! Gostaria de consultar a disponibilidade e valores da peça “${p.name}”.`;
+  if (p.whatsappText) return p.whatsappText;
+  const infoPreco = p.price ? ` (${p.price})` : '';
+  return `Olá! Gostaria de consultar a disponibilidade da peça “${p.name}”${infoPreco}.`;
 }
 
 function linkWhatsApp(p) {
@@ -103,7 +110,6 @@ function renderFiltros() {
   const ativos = products.filter(p => p.ativo !== false);
   const categorias = ['Todas', ...new Set(ativos.map(p => p.category))];
 
-  // Se a categoria escolhida deixou de existir (joia desativada), volta para "Todas"
   if (!categorias.includes(activeCategory)) activeCategory = 'Todas';
 
   filtersContainer.innerHTML = categorias.map(cat => `
@@ -117,6 +123,7 @@ function renderFiltros() {
 function cardHTML(p) {
   const id = escapeHTML(p.id);
   const nome = escapeHTML(p.name);
+  const precoHTML = p.price ? `<p class="product-price">${escapeHTML(p.price)}</p>` : '';
 
   return `
     <article class="product">
@@ -127,6 +134,7 @@ function cardHTML(p) {
       <div class="product-info">
         <span class="product-category">${escapeHTML(p.category)}</span>
         <h3><button type="button" class="product-title-btn" data-open-modal="${id}">${nome}</button></h3>
+        ${precoHTML}
         <p class="product-tagline">“${escapeHTML(p.tagline)}”</p>
         <p class="product-desc">${escapeHTML(p.desc)}</p>
         <a href="${linkWhatsApp(p)}" target="_blank" rel="noopener noreferrer" class="whatsapp-cta">
@@ -147,9 +155,27 @@ function renderProdutos() {
     return daCategoria && naBusca;
   });
 
-  grid.innerHTML = filtrados.length
-    ? filtrados.map(cardHTML).join('')
+  // Se houver busca digitada, mostra todos os resultados encontrados; senão respeita o limite
+  const usandoBusca = busca.length > 0;
+  const itensParaExibir = (mostrarTodas || usandoBusca)
+    ? filtrados
+    : filtrados.slice(0, LIMITE_INICIAL);
+
+  grid.innerHTML = itensParaExibir.length
+    ? itensParaExibir.map(cardHTML).join('')
     : '<p class="empty-msg">Nenhuma joia encontrada.</p>';
+
+  // Controla o botão de "Ver mais / Mostrar menos"
+  if (!usandoBusca && filtrados.length > LIMITE_INICIAL) {
+    const restantes = filtrados.length - LIMITE_INICIAL;
+    loadMoreWrap.innerHTML = `
+      <button type="button" class="btn secondary" id="toggleExpandBtn">
+        ${mostrarTodas ? 'Recolher peças ▴' : `Ver mais peças (+${restantes}) ▾`}
+      </button>
+    `;
+  } else {
+    loadMoreWrap.innerHTML = '';
+  }
 }
 
 /* ---------- MENU DE FILTROS ---------- */
@@ -161,9 +187,10 @@ function setMenuFiltros(aberto) {
 
 function setCategory(cat) {
   activeCategory = cat;
+  mostrarTodas = false; // Reseta para o limite inicial ao trocar de categoria
   renderFiltros();
   renderProdutos();
-  setMenuFiltros(false); // fecha o menu depois de escolher (útil no celular)
+  setMenuFiltros(false);
 }
 
 /* ---------- MODAL ---------- */
@@ -179,6 +206,8 @@ function abrirModal(id, opener) {
   modalCategory.textContent = produto.category;
   modalTitle.textContent = produto.name;
   modalTagline.textContent = `“${produto.tagline}”`;
+  modalPrice.textContent = produto.price || '';
+  modalPrice.style.display = produto.price ? 'block' : 'none';
   modalDesc.textContent = produto.desc;
   modalWhatsapp.href = linkWhatsApp(produto);
 
@@ -194,15 +223,14 @@ function fecharModal() {
   ultimoFoco = null;
 }
 
-/* ---------- IMAGEM RESERVA (sem handlers inline, compatível com a CSP) ---------- */
+/* ---------- IMAGEM RESERVA ---------- */
 function trocarPorFallback(img) {
   const reserva = img.dataset.fallback;
   if (!reserva) return;
-  delete img.dataset.fallback; // evita laço infinito se a reserva também falhar
+  delete img.dataset.fallback;
   img.src = reserva;
 }
 
-// O evento "error" não borbulha, por isso usamos a fase de captura
 document.addEventListener('error', e => {
   if (e.target instanceof HTMLImageElement) trocarPorFallback(e.target);
 }, true);
@@ -224,18 +252,23 @@ grid.addEventListener('click', e => {
   if (gatilho) abrirModal(gatilho.dataset.openModal, gatilho);
 });
 
+loadMoreWrap.addEventListener('click', e => {
+  if (e.target.closest('#toggleExpandBtn')) {
+    mostrarTodas = !mostrarTodas;
+    renderProdutos();
+  }
+});
+
 modalClose.addEventListener('click', fecharModal);
 
 modal.addEventListener('click', e => {
-  if (e.target === modal) fecharModal(); // clique fora da caixa
+  if (e.target === modal) fecharModal();
 });
 
-// Clique fora do menu de filtros fecha o menu
 document.addEventListener('click', e => {
   if (!filterWrap.contains(e.target)) setMenuFiltros(false);
 });
 
-// Tecla Esc fecha o modal (ou, se ele estiver fechado, o menu de filtros)
 document.addEventListener('keydown', e => {
   if (e.key !== 'Escape') return;
   if (modal.classList.contains('active')) {
@@ -249,7 +282,6 @@ document.addEventListener('keydown', e => {
 renderFiltros();
 renderProdutos();
 
-// Imagens estáticas que já falharam antes de o script rodar (ex.: foto da vendedora)
 document.querySelectorAll('img[data-fallback]').forEach(img => {
   if (img.complete && img.naturalWidth === 0) trocarPorFallback(img);
 });
