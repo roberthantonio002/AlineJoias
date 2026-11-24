@@ -111,6 +111,9 @@ nav a:hover { color: var(--dourado-escuro); }
 .menu-toggle[aria-expanded="true"] .menu-bar:nth-child(2) { opacity: 0; }
 .menu-toggle[aria-expanded="true"] .menu-bar:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
 
+/* Lista de categorias do menu (só no celular) */
+.nav-colecao-mobile { display: none; }
+
 /* ---------- BARRA DE BENEFÍCIOS (carrossel contínuo) ---------- */
 .benefits-bar {
   background: var(--offwhite);
@@ -838,6 +841,59 @@ footer .footer-contact a:hover { text-decoration: underline; }
 
   nav a { padding: 16px 24px; font-size: 13px; border-bottom: 1px solid var(--offwhite); }
   nav a:last-child { border-bottom: 0; }
+
+  /* Se a lista ficar maior que a tela, o menu rola */
+  nav { max-height: calc(100vh - 80px); overflow-y: auto; }
+
+  /* "Coleção" vira um botão que abre as categorias */
+  .nav-colecao-link { display: none; }
+  .nav-colecao-mobile { display: block; border-bottom: 1px solid var(--offwhite); }
+
+  .nav-colecao-btn {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    padding: 16px 24px;
+    background: none;
+    border: 0;
+    cursor: pointer;
+    text-align: left;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 13px;
+    font-weight: 500;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: var(--cafe);
+  }
+
+  .nav-chevron { transition: transform .25s ease; }
+  .nav-colecao-btn[aria-expanded="true"] .nav-chevron { transform: rotate(180deg); }
+
+  .nav-sub { display: none; background: var(--offwhite); }
+  .nav-sub.open { display: block; }
+
+  .nav-sub-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    padding: 14px 24px 14px 40px;
+    background: none;
+    border: 0;
+    border-top: 1px solid var(--branco);
+    cursor: pointer;
+    text-align: left;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 12px;
+    font-weight: 500;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: var(--cafe);
+  }
+
+  .nav-sub-item span { font-size: 11px; letter-spacing: 0; color: #5A5550; }
+  .nav-sub-item.active { font-weight: 600; color: var(--dourado-escuro); }
 
   .hero { min-height: 480px; }
   .hero h1 { font-size: 46px; }

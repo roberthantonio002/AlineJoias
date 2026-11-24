@@ -63,7 +63,14 @@
 
   <nav id="mainNav" aria-label="Principal">
     <a href="#inicio">Início</a>
-    <a href="#colecao">Coleção</a>
+    <a href="#colecao" class="nav-colecao-link">Coleção</a>
+    <!-- No celular, "Coleção" abre a lista de categorias (montada pelo script.js) -->
+    <div class="nav-colecao-mobile">
+      <button type="button" class="nav-colecao-btn" id="navColecaoBtn" aria-expanded="false" aria-controls="navSub">
+        Coleção <span class="nav-chevron" aria-hidden="true">▾</span>
+      </button>
+      <div class="nav-sub" id="navSub"></div>
+    </div>
     <a href="#como-comprar">Como comprar</a>
     <a href="#sobre">Aline Borges</a>
   </nav>

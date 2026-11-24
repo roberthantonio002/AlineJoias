@@ -18,9 +18,9 @@ const TEXTO_SEM_PRECO = 'Consulte o valor'; // Aparece quando a peça não tem p
              trocas: 'Trocas em até 7 dias após o recebimento'
              garantia: 'Garantia de 6 meses no banho'  */
 const INFO_LOJA = {
-  cidade: 'Preferecialmente para Curitibanos',
+  cidade: 'Preferencialmente atendemos Curitibanos',
   entrega: 'Para Curitibanos, entregamos pessoalmente.',
-  pagamento: 'A forma de pagamento é combinada pelo WhatsApp.',
+  pagamento: 'A combinar pelo WhatsApp',
   trocas: '',
   garantia: ''
 };
@@ -566,17 +566,56 @@ if (anoEl) anoEl.textContent = new Date().getFullYear();
 (function () {
   const botao = document.getElementById('menuToggle');
   const menu = document.getElementById('mainNav');
+  const btnColecao = document.getElementById('navColecaoBtn');
+  const sub = document.getElementById('navSub');
   if (!botao || !menu) return;
+
+  // Lista de categorias montada a partir das peças ativas (categorias novas entram sozinhas)
+  function renderSub() {
+    const ativas = products.filter(p => p.ativo !== false);
+    const categorias = ['Todas', ...new Set(ativas.map(p => p.category))];
+    sub.innerHTML = categorias.map(cat => {
+      const qtd = cat === 'Todas' ? ativas.length : ativas.filter(p => p.category === cat).length;
+      const rotulo = cat === 'Todas' ? 'Ver todas' : cat;
+      return `<button type="button" class="nav-sub-item ${cat === activeCategory ? 'active' : ''}" data-cat="${escapeHTML(cat)}">${escapeHTML(rotulo)} <span>${qtd}</span></button>`;
+    }).join('');
+  }
+
+  function definirSub(aberto) {
+    if (!btnColecao || !sub) return;
+    if (aberto) renderSub();
+    sub.classList.toggle('open', aberto);
+    btnColecao.setAttribute('aria-expanded', String(aberto));
+  }
 
   function definir(aberto) {
     menu.classList.toggle('open', aberto);
     botao.setAttribute('aria-expanded', String(aberto));
     botao.setAttribute('aria-label', aberto ? 'Fechar menu' : 'Abrir menu');
+    if (!aberto) definirSub(false);
   }
 
   botao.addEventListener('click', () => definir(!menu.classList.contains('open')));
 
-  // Fecha ao escolher um item, ao clicar fora ou ao apertar Esc
+  if (btnColecao && sub) {
+    btnColecao.addEventListener('click', () => definirSub(!sub.classList.contains('open')));
+
+    // Escolher uma categoria: filtra a coleção, fecha o menu e rola até as peças
+    sub.addEventListener('click', e => {
+      const item = e.target.closest('[data-cat]');
+      if (!item) return;
+      searchInput.value = '';
+      setCategory(item.dataset.cat);
+      definir(false);
+      const alvo = document.querySelector('.filter-bar');
+      if (alvo) {
+        const suave = !window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+        alvo.scrollIntoView({ behavior: suave ? 'smooth' : 'auto', block: 'start' });
+      }
+    });
+  }
+
+  // Fecha ao escolher um link, ao tocar fora ou ao apertar Esc
   menu.addEventListener('click', e => { if (e.target.closest('a')) definir(false); });
   document.addEventListener('click', e => {
     if (!botao.contains(e.target) && !menu.contains(e.target)) definir(false);
