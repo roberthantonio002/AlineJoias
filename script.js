@@ -5,20 +5,35 @@
    ========================================================== */
 
 /* ---------- CONFIGURAÇÕES ---------- */
-const WHATSAPP_NUMBER = '5549991023413';
-const FALLBACK_PRODUCT_IMG = 'https://images.unsplash.com/photo-1515562141207-7a88fb7ce338?w=700';
-const LIMITE_INICIAL = 4; // Quantidade de joias exibidas antes de clicar em "Ver mais"
+const NOME_LOJA = 'Aline Joias'; // usado na mensagem do botão geral do WhatsApp
+const WHATSAPP_NUMBER = '5549991023413'; // 55 + DDD + número, sem espaços
+const LIMITE_INICIAL = 4; // Quantidade de peças exibidas antes de clicar em "Ver mais"
 const TEXTO_SEM_PRECO = 'Consulte o valor'; // Aparece quando a peça não tem preço
 
+/* ---------- INFORMAÇÕES DA LOJA (preencha o que a loja oferece) ----------
+   Só aparece no site o que estiver preenchido. Campo vazio ('') fica escondido.
+   Exemplos: cidade: 'Atendemos [sua cidade] e região'
+             entrega: 'Entregas combinadas pelo WhatsApp'
+             pagamento: 'Pix e cartão de crédito'
+             trocas: 'Trocas em até 7 dias após o recebimento'
+             garantia: 'Garantia de 6 meses no banho'  */
+const INFO_LOJA = {
+  cidade: 'Preferecialmente para Curitibanos',
+  entrega: 'Para Curitibanos, entregamos pessoalmente.',
+  pagamento: 'A forma de pagamento é combinada pelo WhatsApp.',
+  trocas: '',
+  garantia: ''
+};
+
 /* ---------- CATÁLOGO ----------
-   Para esconder uma joia sem apagá-la: ativo: false
+   Para esconder uma peça sem apagá-la: ativo: false
    VALOR: escreva em price exatamente como quer que apareça, ex.: price: 'R$ 89,90'
    Sem o campo price (ou price: ''), o site mostra "Consulte o valor".
 
    Modelo para uma peça nova (copie, cole antes do ] final e mude os dados;
    não esqueça a vírgula depois da peça anterior):
    {
-     id: '5',
+     id: '21',
      ativo: true,
      name: 'Nome da peça',
      category: 'Brincos',
@@ -36,7 +51,7 @@ const products = [
     category: 'Brincos',
     price: 'R$ 64,98',
     tagline: 'A intensidade e o brilho combinados com a delicadeza do afeto.',
-    desc: 'Impecável nos detalhes! O formato de trevo cravejado tem um brilho maravilhoso e um acabamento super fino. É daqueles brincos coringas que combinam com tudo.',
+    desc: 'Impecável nos detalhes! O formato de trevo cravejado tem um brilho maravilhoso e um acabamento superfino. É daqueles brincos coringas que combinam com tudo.',
     image: 'image/brincotrevo.jpg'
   },
   {
@@ -46,7 +61,7 @@ const products = [
     category: 'Brincos',
     price: 'R$ 84,90',
     tagline: 'Contemporâneo e luxuoso.',
-    desc: 'Para quem ama peças com personalidade, o Brinco Snake é a escolha ideal. A mistura do dourado polido com a cravação cria um efeito incrível e super atual.',
+    desc: 'Para quem ama peças com personalidade, o Brinco Snake é a escolha ideal. A mistura do dourado polido com a cravação cria um efeito incrível e superatual.',
     image: 'image/brincosnake.jpg'
   },
   {
@@ -113,7 +128,7 @@ const products = [
     id: '9',
     ativo: true,
     name: 'Colar coração ônix e Brinco gota ônix',
-    category: 'Brincos e Colares',
+    category: 'Conjuntos',
     price: '',
     tagline: 'O contraste marcante e elegante da pedra ônix.',
     desc: 'Combinação sofisticada que une o colar com pingente de coração e o brinco em formato de gota na tonalidade ônix. Peças intensas e atemporais para looks cheios de estilo.',
@@ -172,7 +187,7 @@ const products = [
   {
     id: '15',
     ativo: true,
-    name: 'Colar corrente malha trevo crista',
+    name: 'Colar corrente malha trevo cristal',
     category: 'Colares',
     price: 'R$ 139,90',
     tagline: 'Caimento fluido com o charme icônico do trevo cristal.',
@@ -222,7 +237,7 @@ const products = [
   {
     id: '20',
     ativo: true,
-    name: 'Anéis de Prata 925, Zircônia e  Laços 925',
+    name: 'Anéis de Prata 925, Zircônia e Laços 925',
     category: 'Anéis',
     price: '',
     tagline: 'A autenticidade da Prata 925 com detalhes românticos.',
@@ -230,6 +245,16 @@ const products = [
     image: 'image/aneis2.jpg'
   }
 ];
+
+/* ---------- FOTO INDISPONÍVEL ----------
+   Se a foto de uma peça (ou da vendedora) não carregar, aparece este aviso neutro,
+   em vez de uma foto de outra pessoa ou de outra joia. */
+const IMG_INDISPONIVEL = 'data:image/svg+xml;utf8,' + encodeURIComponent(
+  '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300">' +
+  '<rect width="400" height="300" fill="#F7F2E8"/>' +
+  '<text x="200" y="158" text-anchor="middle" font-family="Georgia, serif" font-size="22" fill="#8A6420">Foto em breve</text>' +
+  '</svg>'
+);
 
 /* ---------- ELEMENTOS DA PÁGINA ---------- */
 const grid = document.getElementById('productsGrid');
@@ -281,6 +306,30 @@ function linkWhatsApp(p) {
   return `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(mensagemWhatsApp(p))}`;
 }
 
+function linkWhatsAppGeral() {
+  const texto = `Olá! Vim pelo catálogo da ${NOME_LOJA} e gostaria de mais informações.`;
+  return `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(texto)}`;
+}
+
+// Mostra o número no formato (49) 99999-9999
+function numeroFormatado() {
+  const n = WHATSAPP_NUMBER.replace(/\D/g, '');
+  const m = n.match(/^55(\d{2})(\d{4,5})(\d{4})$/);
+  return m ? `(${m[1]}) ${m[2]}-${m[3]}` : `+${n}`;
+}
+
+/* ---------- FOTO INDISPONÍVEL ---------- */
+function trocarPorPlaceholder(img) {
+  if (img.dataset.erro) return;
+  img.dataset.erro = '1';
+  img.src = IMG_INDISPONIVEL;
+}
+
+document.addEventListener('error', e => {
+  const img = e.target;
+  if (img instanceof HTMLImageElement && img.hasAttribute('data-foto')) trocarPorPlaceholder(img);
+}, true);
+
 /* ---------- RENDERIZAÇÃO ---------- */
 function renderFiltros() {
   const ativos = products.filter(p => p.ativo !== false);
@@ -306,8 +355,7 @@ function cardHTML(p) {
   return `
     <article class="product">
       <button type="button" class="product-img-wrap" data-open-modal="${id}" aria-label="Ver detalhes de ${nome}">
-        <img src="${escapeHTML(p.image)}" alt="" loading="lazy" decoding="async"
-             data-fallback="${FALLBACK_PRODUCT_IMG}">
+        <img src="${escapeHTML(p.image)}" alt="" loading="lazy" decoding="async" data-foto>
       </button>
       <div class="product-info">
         <span class="product-category">${escapeHTML(p.category)}</span>
@@ -341,7 +389,7 @@ function renderProdutos() {
 
   grid.innerHTML = itensParaExibir.length
     ? itensParaExibir.map(cardHTML).join('')
-    : '<p class="empty-msg">Nenhuma joia encontrada.</p>';
+    : '<p class="empty-msg">Nenhuma peça encontrada.</p>';
 
   // Controla o botão de "Ver mais / Mostrar menos"
   if (!usandoBusca && filtrados.length > LIMITE_INICIAL) {
@@ -354,6 +402,35 @@ function renderProdutos() {
   } else {
     loadMoreWrap.innerHTML = '';
   }
+}
+
+function renderInfoLoja() {
+  const rotulos = {
+    cidade: 'Atendimento',
+    entrega: 'Entrega',
+    pagamento: 'Pagamento',
+    trocas: 'Trocas e devoluções',
+    garantia: 'Garantia'
+  };
+  document.getElementById('storeInfo').innerHTML = Object.keys(rotulos)
+    .filter(chave => INFO_LOJA[chave])
+    .map(chave => `
+      <div class="info-item">
+        <h4>${rotulos[chave]}</h4>
+        <p>${escapeHTML(INFO_LOJA[chave])}</p>
+      </div>
+    `).join('');
+}
+
+function configurarContato() {
+  const geral = linkWhatsAppGeral();
+  document.getElementById('wppGeral').href = geral;
+  document.getElementById('wppFloat').href = geral;
+
+  const rodape = document.getElementById('footerWpp');
+  rodape.href = geral;
+  rodape.textContent = numeroFormatado();
+  document.getElementById('wppNumber').textContent = numeroFormatado();
 }
 
 /* ---------- MENU DE FILTROS ---------- */
@@ -378,7 +455,7 @@ function abrirModal(id, opener) {
 
   ultimoFoco = opener || null;
 
-  modalImg.dataset.fallback = FALLBACK_PRODUCT_IMG;
+  delete modalImg.dataset.erro;
   modalImg.src = produto.image;
   modalImg.alt = produto.name;
   modalCategory.textContent = produto.category;
@@ -401,17 +478,26 @@ function fecharModal() {
   ultimoFoco = null;
 }
 
-/* ---------- IMAGEM RESERVA ---------- */
-function trocarPorFallback(img) {
-  const reserva = img.dataset.fallback;
-  if (!reserva) return;
-  delete img.dataset.fallback;
-  img.src = reserva;
-}
+// Mantém o foco do teclado (Tab) dentro da janela enquanto ela está aberta
+function prenderFocoNoModal(e) {
+  const focaveis = [...modal.querySelectorAll('a[href], button:not([disabled])')];
+  if (!focaveis.length) return;
 
-document.addEventListener('error', e => {
-  if (e.target instanceof HTMLImageElement) trocarPorFallback(e.target);
-}, true);
+  const primeiro = focaveis[0];
+  const ultimo = focaveis[focaveis.length - 1];
+  const atual = document.activeElement;
+
+  if (!modal.contains(atual)) {
+    e.preventDefault();
+    primeiro.focus();
+  } else if (e.shiftKey && atual === primeiro) {
+    e.preventDefault();
+    ultimo.focus();
+  } else if (!e.shiftKey && atual === ultimo) {
+    e.preventDefault();
+    primeiro.focus();
+  }
+}
 
 /* ---------- EVENTOS ---------- */
 searchInput.addEventListener('input', renderProdutos);
@@ -448,8 +534,15 @@ document.addEventListener('click', e => {
 });
 
 document.addEventListener('keydown', e => {
+  const modalAberto = modal.classList.contains('active');
+
+  if (e.key === 'Tab' && modalAberto) {
+    prenderFocoNoModal(e);
+    return;
+  }
+
   if (e.key !== 'Escape') return;
-  if (modal.classList.contains('active')) {
+  if (modalAberto) {
     fecharModal();
   } else {
     setMenuFiltros(false);
@@ -459,10 +552,39 @@ document.addEventListener('keydown', e => {
 /* ---------- INICIALIZAÇÃO ---------- */
 renderFiltros();
 renderProdutos();
+renderInfoLoja();
+configurarContato();
 
-document.querySelectorAll('img[data-fallback]').forEach(img => {
-  if (img.complete && img.naturalWidth === 0) trocarPorFallback(img);
+document.querySelectorAll('img[data-foto]').forEach(img => {
+  if (img.complete && img.naturalWidth === 0) trocarPorPlaceholder(img);
 });
 
 const anoEl = document.getElementById('ano');
 if (anoEl) anoEl.textContent = new Date().getFullYear();
+
+/* ---------- MENU DO CELULAR ---------- */
+(function () {
+  const botao = document.getElementById('menuToggle');
+  const menu = document.getElementById('mainNav');
+  if (!botao || !menu) return;
+
+  function definir(aberto) {
+    menu.classList.toggle('open', aberto);
+    botao.setAttribute('aria-expanded', String(aberto));
+    botao.setAttribute('aria-label', aberto ? 'Fechar menu' : 'Abrir menu');
+  }
+
+  botao.addEventListener('click', () => definir(!menu.classList.contains('open')));
+
+  // Fecha ao escolher um item, ao clicar fora ou ao apertar Esc
+  menu.addEventListener('click', e => { if (e.target.closest('a')) definir(false); });
+  document.addEventListener('click', e => {
+    if (!botao.contains(e.target) && !menu.contains(e.target)) definir(false);
+  });
+  document.addEventListener('keydown', e => { if (e.key === 'Escape') definir(false); });
+
+  // Se a tela crescer (ex.: girar o celular), volta ao menu normal
+  window.matchMedia('(min-width: 769px)').addEventListener('change', e => {
+    if (e.matches) definir(false);
+  });
+})();

@@ -13,9 +13,7 @@
 <meta http-equiv="Content-Security-Policy" content="default-src 'self'; style-src 'self' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https:; script-src 'self'; connect-src 'none'; object-src 'none'; base-uri 'self'; form-action 'self';">
 
 <title>Aline Joias | Catálogo Exclusivo</title>
-<meta name="description" content="Catálogo de joias exclusivas da Aline Joias, selecionadas com cuidado e afeto. Consulte disponibilidade e valores pelo WhatsApp.">
-
-<!-- TROQUE https://SEU-SITE.com.br/ pelo endereço real onde o site está publicado (aparece várias vezes neste arquivo: use Ctrl+H no VS Code e substitua todas de uma vez) -->
+<meta name="description" content="Catálogo de semijoias exclusivas da Aline Joias, selecionadas com cuidado e afeto. Consulte disponibilidade e valores pelo WhatsApp.">
 <link rel="canonical" href="https://alinejoias.pages.dev/">
 
 <!-- ÍCONE DA ABA -->
@@ -26,14 +24,14 @@
 <meta property="og:site_name" content="Aline Joias">
 <meta property="og:locale" content="pt_BR">
 <meta property="og:title" content="Aline Joias | Catálogo Exclusivo">
-<meta property="og:description" content="Joias exclusivas selecionadas com cuidado e afeto. Conheça a coleção e consulte valores pelo WhatsApp.">
+<meta property="og:description" content="Semijoias exclusivas selecionadas com cuidado e afeto. Conheça a coleção e consulte valores pelo WhatsApp.">
 <meta property="og:url" content="https://alinejoias.pages.dev/">
 <meta property="og:image" content="https://alinejoias.pages.dev/image/vendedora.jpg">
 <meta property="og:image:type" content="image/jpeg">
 <meta property="og:image:alt" content="Aline Borges, criadora da Aline Joias">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Aline Joias | Catálogo Exclusivo">
-<meta name="twitter:description" content="Joias exclusivas selecionadas com cuidado e afeto. Consulte valores pelo WhatsApp.">
+<meta name="twitter:description" content="Semijoias exclusivas selecionadas com cuidado e afeto. Consulte valores pelo WhatsApp.">
 <meta name="twitter:image" content="https://alinejoias.pages.dev/image/vendedora.jpg">
 
 <!-- DADOS ESTRUTURADOS PARA O GOOGLE -->
@@ -53,13 +51,20 @@
 <!-- CABEÇALHO -->
 <header>
   <div class="logo-wrap">
-    <span class="brand-tag">Ateliê de Joias Exclusivas</span>
+    <span class="brand-tag">Ateliê de Semijoias Exclusivas</span>
     <div class="logo">ALINE JOIAS</div>
   </div>
 
-  <nav aria-label="Principal">
+  <button type="button" class="menu-toggle" id="menuToggle" aria-expanded="false" aria-controls="mainNav" aria-label="Abrir menu">
+    <span class="menu-bar"></span>
+    <span class="menu-bar"></span>
+    <span class="menu-bar"></span>
+  </button>
+
+  <nav id="mainNav" aria-label="Principal">
     <a href="#inicio">Início</a>
     <a href="#colecao">Coleção</a>
+    <a href="#como-comprar">Como comprar</a>
     <a href="#sobre">Aline Borges</a>
   </nav>
 </header>
@@ -69,22 +74,22 @@
   <div class="benefits-container">
     <div class="benefits-set">
       <span>✦ Curadoria e Exclusividade</span>
-      <span>✦ Brilho e Durabilidade Garantidos</span>
+      <span>✦ Peças Selecionadas com Cuidado</span>
       <span>✦ Atendimento Personalizado</span>
     </div>
     <div class="benefits-set" aria-hidden="true">
       <span>✦ Curadoria e Exclusividade</span>
-      <span>✦ Brilho e Durabilidade Garantidos</span>
+      <span>✦ Peças Selecionadas com Cuidado</span>
       <span>✦ Atendimento Personalizado</span>
     </div>
     <div class="benefits-set" aria-hidden="true">
       <span>✦ Curadoria e Exclusividade</span>
-      <span>✦ Brilho e Durabilidade Garantidos</span>
+      <span>✦ Peças Selecionadas com Cuidado</span>
       <span>✦ Atendimento Personalizado</span>
     </div>
     <div class="benefits-set" aria-hidden="true">
       <span>✦ Curadoria e Exclusividade</span>
-      <span>✦ Brilho e Durabilidade Garantidos</span>
+      <span>✦ Peças Selecionadas com Cuidado</span>
       <span>✦ Atendimento Personalizado</span>
     </div>
   </div>
@@ -95,17 +100,17 @@
   <!-- CAPA -->
   <section class="hero" id="inicio">
     <div class="hero-content">
-      <small>Joias que contam histórias</small>
+      <small>Semijoias que contam histórias</small>
       <h1>A beleza está nos detalhes.</h1>
       <p>
-        Descubra uma seleção especial de joias pensadas para valorizar sua essência,
+        Descubra uma seleção especial de semijoias pensadas para valorizar sua essência,
         elegância e personalidade com todo o cuidado e afeto.
       </p>
       <a href="#colecao" class="btn">Conheça as peças</a>
     </div>
   </section>
 
-  <!-- COLEÇÃO DE JOIAS COM BUSCA E FILTROS -->
+  <!-- COLEÇÃO COM BUSCA E FILTROS -->
   <section id="colecao">
     <div class="section-title">
       <span>Seleção especial</span>
@@ -115,7 +120,7 @@
 
     <div class="filter-bar">
       <div class="search-box">
-        <input type="text" id="searchInput" placeholder="Pesquisar joia..." maxlength="60" aria-label="Pesquisar joia">
+        <input type="text" id="searchInput" placeholder="Pesquisar peça..." maxlength="60" aria-label="Pesquisar peça">
       </div>
 
       <div class="filter-dropdown-wrap">
@@ -136,12 +141,36 @@
     <div class="load-more-wrap" id="loadMoreWrap"></div>
   </section>
 
-  <!-- MODAL DE RESUMO DA JOIA -->
+  <!-- COMO COMPRAR E INFORMAÇÕES DA LOJA (os dados ficam em INFO_LOJA, no script.js) -->
+  <section class="how" id="como-comprar">
+    <div class="section-title">
+      <span>Simples e direto</span>
+      <h2>Como Comprar</h2>
+      <p>O atendimento é feito de forma pessoal pelo WhatsApp.</p>
+    </div>
+
+    <ol class="steps">
+      <li><strong>Escolha</strong><span>Navegue pela coleção e toque na peça para ver os detalhes.</span></li>
+      <li><strong>Consulte</strong><span>Toque em “Consultar no WhatsApp” para confirmar a disponibilidade.</span></li>
+      <li><strong>Combine</strong><span>Alinhe com a Aline o pagamento e a entrega da sua peça.</span></li>
+    </ol>
+
+    <div class="store-info" id="storeInfo"></div>
+
+    <div class="how-cta">
+      <a id="wppGeral" href="#" target="_blank" rel="noopener noreferrer" class="whatsapp-cta">
+        <img src="image/whatsapp.png" alt="" class="icon-whatsapp"> Falar no WhatsApp
+      </a>
+      <p class="wpp-number">WhatsApp: <span id="wppNumber"></span></p>
+    </div>
+  </section>
+
+  <!-- MODAL DE RESUMO DA PEÇA -->
   <div class="modal-overlay" id="productModal">
     <div class="modal-box" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
       <button type="button" class="modal-close" id="modalClose" aria-label="Fechar janela">&times;</button>
       <div class="modal-img-wrap">
-        <img id="modalImg" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" alt="">
+        <img id="modalImg" data-foto src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" alt="">
       </div>
       <div class="modal-content">
         <span class="modal-category" id="modalCategory"></span>
@@ -161,7 +190,7 @@
     <img
       src="image/vendedora.jpg"
       alt="Aline Borges, criadora da marca"
-      data-fallback="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=900"
+      data-foto
       loading="lazy"
       decoding="async"
     >
@@ -171,7 +200,7 @@
       <p>
         Professora, mãe, esposa e, agora, empreendedora no universo das semijoias. Transformei uma paixão antiga em propósito: levar mais brilho, elegância e autoestima para o dia a dia das mulheres através de peças escolhidas com carinho.
         <br><br>
-       Cada peça que você encontra por aqui carrega uma intenção: celebrar momentos,
+        Cada peça que você encontra por aqui carrega uma intenção: celebrar momentos,
         realçar a sua beleza natural e contar histórias através do brilho.
       </p>
       <div class="social-actions">
@@ -185,18 +214,18 @@
     </div>
   </section>
 
-  <!-- CONFIABILIDADE E TRAJETÓRIA -->
+  <!-- COMPROMISSO E CONFIANÇA -->
   <section class="trust-section">
     <div class="trust-container">
-      <span>Tradição e Excelência</span>
-      <h2>Anos de Experiência e Confiança no Mercado</h2>
+      <span>Nosso Compromisso</span>
+      <h2>Cuidado e Confiança em Cada Peça</h2>
       <p>
-        A <strong>Aline Joias</strong> consolidou sua trajetória através do compromisso inegociável com a qualidade, autenticidade e o atendimento humanizado. Cada peça passa por um rigoroso processo de seleção para garantir que você receba não apenas um acessório, mas um símbolo duradouro de afeto e bom gosto.
+        A <strong>Aline Joias</strong> nasceu de uma paixão antiga e do compromisso com a qualidade, a autenticidade e o atendimento humanizado. Cada peça passa por uma seleção cuidadosa para que você receba não apenas um acessório, mas um símbolo de afeto e bom gosto.
       </p>
       <div class="trust-badges">
         <div class="trust-badge-item">
-          <h4>Seleção Rigorosa</h4>
-          <p>Padrão elevado de acabamento e durabilidade em todas as coleções.</p>
+          <h4>Seleção Cuidadosa</h4>
+          <p>Peças escolhidas uma a uma, com atenção ao acabamento.</p>
         </div>
         <div class="trust-badge-item">
           <h4>Atendimento Único</h4>
@@ -217,10 +246,16 @@
 
 </main>
 
+<!-- BOTÃO FLUTUANTE DO WHATSAPP -->
+<a id="wppFloat" class="wpp-float" href="#" target="_blank" rel="noopener noreferrer" aria-label="Falar no WhatsApp">
+  <img src="image/whatsapp.png" alt="">
+</a>
+
 <!-- RODAPÉ -->
 <footer>
   <div class="logo">ALINE JOIAS</div>
   <p>© <span id="ano">2026</span> Aline Joias · Feito com cuidado e exclusividade.</p>
+  <p class="footer-contact">WhatsApp: <a id="footerWpp" href="#" target="_blank" rel="noopener noreferrer"></a></p>
   <p class="privacy-note">
     Privacidade &amp; Segurança (LGPD): este catálogo digital não coleta dados pessoais, não armazena informações financeiras e não utiliza cookies de rastreamento próprios. Fontes e algumas imagens são carregadas de serviços externos (Google Fonts e Unsplash). Todo atendimento é realizado diretamente pelos canais oficiais verificados.
   </p>
