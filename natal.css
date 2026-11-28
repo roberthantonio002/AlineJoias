@@ -1,5 +1,8 @@
 /* ==========================================================
    ALINE JOIAS · TEMA DE NATAL
+   Tudo aqui só vale com <body class="tema-natal">.
+   O natal.js remove essa classe sozinho depois da data final,
+   e o site volta ao visual normal.
    ========================================================== */
 
 /* ---------- Liga e desliga o que é só de Natal / só do normal ---------- */
@@ -12,12 +15,12 @@ body.tema-natal nav a.natal-only { display: flex !important; }
 
 /* ---------- Cores do Natal ---------- */
 body.tema-natal {
-  --cafe: #7A1426;        
-  --vermelho: #9B1C31;    
-  --verde: #1F4D3A;       
+  --cafe: #7A1426;        /* vermelho profundo: títulos e textos de destaque */
+  --vermelho: #9B1C31;    /* botões e cabeçalho */
+  --verde: #1F4D3A;       /* verde de Natal: faixas e rodapé */
 }
 
-.hero { position: relative; overflow: hidden; }
+body.tema-natal .hero { position: relative; overflow: hidden; }
 
 /* ---------- Cabeçalho em vermelho no Tema de Natal ---------- */
 body.tema-natal header {
@@ -25,34 +28,34 @@ body.tema-natal header {
   border-bottom: 2px solid var(--dourado-claro);
 }
 
-body.tema-natal header .brand-tag {
-  color: #F2D49B;
-}
-
-body.tema-natal header .logo {
-  color: #FFFFFF;
-}
+body.tema-natal header .brand-tag { color: #F2D49B; }
+body.tema-natal header .logo { color: #FFFFFF; }
 
 body.tema-natal header .menu-toggle {
   background: transparent;
   border-color: rgba(255, 255, 255, 0.4);
 }
 
-body.tema-natal header .menu-bar {
-  background: #FFFFFF;
-}
+body.tema-natal header .menu-bar { background: #FFFFFF; }
 
 /* ---------- Barra de benefícios em verde ---------- */
 body.tema-natal .benefits-bar { background: var(--verde); border-bottom: 1px solid var(--dourado); }
 body.tema-natal .benefits-container { color: #F7F2E8; }
 
-/* ---------- Capa de Natal limpa ---------- */
+/* ---------- Capa de Natal limpa ----------
+   A cor de fundo garante que o texto branco continue legível
+   mesmo se a foto demorar ou falhar ao carregar. */
 body.tema-natal .hero {
-  background:
+  background-color: var(--verde);
+  background-image:
     linear-gradient(rgba(31, 77, 58, 0.2), rgba(122, 20, 38, 0.2)),
-    url('https://images.unsplash.com/photo-1543589077-47d81606c1bf?w=1800')
-    center / cover;
+    url('https://images.unsplash.com/photo-1543589077-47d81606c1bf?w=1800');
+  background-position: center;
+  background-size: cover;
 }
+
+/* Sombra suave nas letras da capa, para lerem bem sobre a foto */
+body.tema-natal .hero-content { text-shadow: 0 1px 10px rgba(0, 0, 0, 0.5); }
 
 body.tema-natal .hero .btn { border-color: #fff; margin-right: 10px; }
 body.tema-natal .hero .btn.secondary { color: #fff; border-color: #fff; background: rgba(255, 255, 255, .12); }
@@ -115,36 +118,40 @@ body.tema-natal footer { background: var(--verde); border-top: 6px solid var(--v
 
 /* ---------- Cores do Menu (Desktop vs Celular) ---------- */
 @media (min-width: 769px) {
-  body.tema-natal header nav a {
-    color: #FFFFFF !important;
-  }
-  body.tema-natal header nav a:hover {
-    color: #F2D49B !important;
-  }
+  body.tema-natal header nav a { color: #FFFFFF !important; }
+  body.tema-natal header nav a:hover { color: #F2D49B !important; }
 }
 
 /* ---------- Celular ---------- */
 @media (max-width: 768px) {
   body.tema-natal header nav a,
   body.tema-natal .nav-colecao-btn,
-  body.tema-natal .nav-sub a {
-    color: #7A1426 !important;
-  }
+  body.tema-natal .nav-sub a { color: #7A1426 !important; }
+
   body.tema-natal header nav a:hover,
   body.tema-natal .nav-colecao-btn:hover,
-  body.tema-natal .nav-sub a:hover {
-    color: #9B1C31 !important;
-  }
-  .benefits-bar {
-    padding: 6px 0;
-  }
-  .hero { 
-    min-height: 400px; 
-  }
-  .natal-feliz { 
-    font-size: 32px; 
-  }
-  body.tema-natal .hero .btn { 
-    margin-right: 0; 
-  }
+  body.tema-natal .nav-sub a:hover { color: #9B1C31 !important; }
+
+  body.tema-natal .benefits-bar { padding: 6px 0; }
+  body.tema-natal .hero { min-height: 400px; }
+  .natal-feliz { font-size: 32px; }
+  body.tema-natal .hero .btn { margin-right: 0; }
+}
+/* ---------- Sombra (Overlay) na imagem da capa de Natal ---------- */
+body.tema-natal .hero::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  /* Aplica um degradê escuro do topo para o fundo */
+  background: linear-gradient(to bottom, rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.6));
+  z-index: 1; /* Coloca a sombra atrás do texto e botões */
+}
+
+/* Garante que o conteúdo (texto, botões) fique acima da sombra */
+body.tema-natal .hero .hero-content {
+  position: relative;
+  z-index: 2;
 }
