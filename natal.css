@@ -1,0 +1,170 @@
+/* ==========================================================
+   ALINE JOIAS · TEMA DE NATAL
+   ========================================================== */
+
+/* ---------- Liga e desliga o que é só de Natal / só do normal ---------- */
+.natal-only { display: none !important; }
+body.tema-natal .normal-only { display: none !important; }
+body.tema-natal .natal-only { display: block !important; }
+body.tema-natal span.natal-only { display: inline !important; }
+body.tema-natal .btn.natal-only { display: inline-flex !important; }
+body.tema-natal nav a.natal-only { display: flex !important; }
+
+/* ---------- Cores do Natal ---------- */
+body.tema-natal {
+  --cafe: #7A1426;        
+  --vermelho: #9B1C31;    
+  --verde: #1F4D3A;       
+}
+
+.hero { position: relative; overflow: hidden; }
+
+/* ---------- Barra de benefícios em verde ---------- */
+body.tema-natal .benefits-bar { background: var(--verde); border-bottom: 1px solid var(--dourado); }
+body.tema-natal .benefits-container { color: #F7F2E8; }
+
+/* ---------- Capa de Natal limpa ---------- */
+body.tema-natal .hero {
+  background:
+    linear-gradient(rgba(31, 77, 58, 0.2), rgba(122, 20, 38, 0.2)),
+    url('https://images.unsplash.com/photo-1543589077-47d81606c1bf?w=1800')
+    center / cover;
+}
+
+body.tema-natal .hero .btn { border-color: #fff; margin-right: 10px; }
+body.tema-natal .hero .btn.secondary { color: #fff; border-color: #fff; background: rgba(255, 255, 255, .12); }
+body.tema-natal .hero .btn.secondary:hover { background: #fff; color: var(--cafe); }
+
+/* ---------- Botões em vermelho, com verde ao passar o mouse ---------- */
+body.tema-natal .btn,
+body.tema-natal .whatsapp-cta { background: var(--vermelho); border-color: var(--vermelho); }
+body.tema-natal .btn:hover { background: var(--verde); border-color: var(--verde); }
+body.tema-natal .whatsapp-cta:hover { background: var(--verde); }
+body.tema-natal .btn.secondary { background: transparent; color: var(--cafe); border-color: var(--vermelho); }
+body.tema-natal .btn.secondary:hover { background: var(--vermelho); color: #fff; border-color: var(--vermelho); }
+body.tema-natal .hero .btn.secondary { color: #fff; border-color: #fff; background: rgba(255, 255, 255, .12); }
+body.tema-natal .hero .btn.secondary:hover { background: #fff; color: var(--cafe); }
+body.tema-natal .steps li::before { background: var(--vermelho); }
+
+/* ---------- Títulos de seção com fita de bengala doce ---------- */
+body.tema-natal .section-title h2::after {
+  content: '';
+  display: block;
+  width: 120px;
+  height: 8px;
+  margin: 14px auto 0;
+  border: 1px solid var(--vermelho);
+  border-radius: 4px;
+  background: repeating-linear-gradient(45deg, var(--vermelho) 0 8px, #fff 8px 16px);
+}
+
+/* ---------- Cartões das peças ---------- */
+body.tema-natal .product { border-top: 3px solid var(--vermelho); }
+body.tema-natal .product:hover { border-color: var(--vermelho); box-shadow: 0 12px 30px rgba(122, 20, 38, .12); }
+body.tema-natal .product-img-wrap::after { background: rgba(122, 20, 38, .88); }
+body.tema-natal .modal-box { border-top: 4px solid var(--vermelho); }
+
+/* ---------- Faixa de bengala doce no banner das redes sociais ---------- */
+body.tema-natal .newsletter-banner { position: relative; padding-top: 72px; }
+
+body.tema-natal .newsletter-banner::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 12px;
+  background: repeating-linear-gradient(45deg, var(--vermelho) 0 14px, #fff 14px 28px);
+}
+
+/* ---------- Rodapé verde ---------- */
+body.tema-natal footer { background: var(--verde); border-top: 6px solid var(--vermelho); }
+
+.natal-feliz {
+  font-family: 'Great Vibes', 'Cormorant Garamond', cursive;
+  font-size: 36px;
+  line-height: 1.2;
+  letter-spacing: 1px !important;
+  color: #F2D49B;
+  opacity: 1 !important;
+  margin-bottom: 8px;
+}
+
+/* ---------- Neve ---------- */
+.natal-neve { position: fixed; inset: 0; z-index: 60; pointer-events: none; overflow: hidden; }
+.natal-neve.off { display: none; }
+
+.floco {
+  position: absolute;
+  top: -24px;
+  left: var(--x);
+  font-size: var(--s);
+  color: #dbeafe;
+  text-shadow: 0 0 2px #3b6ea5, 0 0 5px rgba(59, 110, 165, .6);
+  opacity: var(--o);
+  animation: cair var(--t) linear var(--a) infinite;
+}
+
+@keyframes cair {
+  from { transform: translate3d(0, -5vh, 0) rotate(0deg); }
+  to   { transform: translate3d(var(--dx), 108vh, 0) rotate(360deg); }
+}
+
+/* Botão para ligar e desligar a neve */
+.natal-neve-btn {
+  position: fixed;
+  left: 18px;
+  bottom: calc(18px + env(safe-area-inset-bottom, 0px));
+  z-index: 90;
+  width: 46px;
+  height: 46px;
+  border-radius: 50%;
+  border: 2px solid #fff;
+  background: var(--vermelho);
+  color: #fff;
+  font-size: 18px;
+  line-height: 1;
+  cursor: pointer;
+  box-shadow: 0 8px 22px rgba(122, 20, 38, .4);
+}
+
+.natal-neve-btn[aria-pressed="false"] { background: #6b7280; }
+
+/* ---------- Celular ---------- */
+@media (max-width: 768px) {
+  .hero { min-height: 400px; /* Reduz a altura da capa no celular (ajuste este valor se quiser mais ou menos alto) */ }
+  .natal-feliz { font-size: 32px; }
+  body.tema-natal .hero .btn { margin-right: 0; }
+}
+/* ---------- Cabeçalho em vermelho no Tema de Natal ---------- */
+body.tema-natal header {
+  background-color: var(--vermelho);
+  border-bottom: 2px solid var(--dourado-claro);
+}
+
+/* Ajusta as cores dos textos e links do cabeçalho para ficarem brancos sobre o fundo vermelho */
+body.tema-natal header .brand-tag {
+  color: #F2D49B; /* Dourado clarinho para destacar */
+}
+
+body.tema-natal header .logo {
+  color: #FFFFFF;
+}
+
+body.tema-natal header nav a {
+  color: #FFFFFF;
+}
+
+body.tema-natal header nav a:hover {
+  color: #F2D49B;
+}
+
+/* Botão do menu mobile e suas barrinhas no cabeçalho */
+body.tema-natal header .menu-toggle {
+  background: transparent;
+  border-color: rgba(255, 255, 255, 0.4);
+}
+
+body.tema-natal header .menu-bar {
+  background: #FFFFFF;
+}

@@ -3,50 +3,50 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="theme-color" content="#65351F">
+<meta name="theme-color" content="#7A1426">
 
-<!-- SEGURANÇA E PRIVACIDADE
-     A CSP abaixo não precisa de 'unsafe-inline' porque o CSS e o JS estão em arquivos próprios.
-     Observação: X-Content-Type-Options e frame-ancestors só funcionam como cabeçalho HTTP
-     (ex.: arquivo _headers no Netlify/Cloudflare Pages), não por <meta>. -->
+<!-- SEGURANÇA E PRIVACIDADE -->
 <meta name="referrer" content="strict-origin-when-cross-origin">
 <meta http-equiv="Content-Security-Policy" content="default-src 'self'; style-src 'self' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https:; script-src 'self'; connect-src 'none'; object-src 'none'; base-uri 'self'; form-action 'self';">
 
-<title>Aline Joias | Catálogo Exclusivo</title>
-<meta name="description" content="Catálogo de semijoias exclusivas da Aline Joias, selecionadas com cuidado e afeto. Consulte disponibilidade e valores pelo WhatsApp.">
+<!-- TÍTULO E DESCRIÇÕES -->
+<title>Aline Joias | Catálogo de Natal 2026</title>
+<meta name="description" content="Catálogo de Natal da Aline Joias: semijoias para presentear e brilhar nas festas. Consulte disponibilidade e valores pelo WhatsApp.">
 <link rel="canonical" href="https://alinejoias.pages.dev/">
 
 <!-- ÍCONE DA ABA -->
 <link rel="icon" type="image/png" href="image/logo.png">
 
-<!-- PRÉVIA AO COMPARTILHAR O LINK (WhatsApp, Instagram, Facebook, Telegram) -->
+<!-- PRÉVIA AO COMPARTILHAR O LINK -->
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Aline Joias">
 <meta property="og:locale" content="pt_BR">
-<meta property="og:title" content="Aline Joias | Catálogo Exclusivo">
-<meta property="og:description" content="Semijoias exclusivas selecionadas com cuidado e afeto. Conheça a coleção e consulte valores pelo WhatsApp.">
+<meta property="og:title" content="Aline Joias | Catálogo de Natal 2026">
+<meta property="og:description" content="Semijoias para presentear e brilhar nas festas de Natal. Conheça a coleção e consulte valores pelo WhatsApp.">
 <meta property="og:url" content="https://alinejoias.pages.dev/">
-<meta property="og:image" content="https://alinejoias.pages.dev/image/vendedora.jpg">
+<meta property="og:image" content="https://alinejoias.pages.dev/image/anelsolitario.jpg">
 <meta property="og:image:type" content="image/jpeg">
-<meta property="og:image:alt" content="Aline Borges, criadora da Aline Joias">
+<meta property="og:image:alt" content="Anel solitário, semijoia da Aline Joias">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="Aline Joias | Catálogo Exclusivo">
-<meta name="twitter:description" content="Semijoias exclusivas selecionadas com cuidado e afeto. Consulte valores pelo WhatsApp.">
-<meta name="twitter:image" content="https://alinejoias.pages.dev/image/vendedora.jpg">
+<meta name="twitter:title" content="Aline Joias | Catálogo de Natal 2026">
+<meta name="twitter:description" content="Semijoias para presentear e brilhar nas festas de Natal. Consulte valores pelo WhatsApp.">
+<meta name="twitter:image" content="https://alinejoias.pages.dev/image/anelsolitario.jpg">
 
 <!-- DADOS ESTRUTURADOS PARA O GOOGLE -->
 <script type="application/ld+json">
-{"@context":"https://schema.org","@type":"JewelryStore","name":"Aline Joias","url":"https://alinejoias.pages.dev/","image":"https://alinejoias.pages.dev/image/vendedora.jpg","sameAs":["https://www.instagram.com/alineborges_acessoriosdeluxo"]}
+{"@context":"https://schema.org","@type":"JewelryStore","name":"Aline Joias","url":"https://alinejoias.pages.dev/","image":"https://alinejoias.pages.dev/image/anelsolitario.jpg","sameAs":["https://www.instagram.com/alineborges_acessoriosdeluxo"]}
 </script>
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Montserrat:wght@400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Great+Vibes&family=Montserrat:wght@400;500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="natal.css">
 <script src="script.js" defer></script>
+<script src="natal.js" defer></script>
 </head>
 
-<body>
+<body class="tema-natal">
 
 <!-- CABEÇALHO -->
 <header>
@@ -64,7 +64,6 @@
   <nav id="mainNav" aria-label="Principal">
     <a href="#inicio">Início</a>
     <a href="#colecao" class="nav-colecao-link">Coleção</a>
-    <!-- No celular, "Coleção" abre a lista de categorias (montada pelo script.js) -->
     <div class="nav-colecao-mobile">
       <button type="button" class="nav-colecao-btn" id="navColecaoBtn" aria-expanded="false" aria-controls="navSub">
         Coleção <span class="nav-chevron" aria-hidden="true">▾</span>
@@ -76,7 +75,7 @@
   </nav>
 </header>
 
-<!-- BARRA DE BENEFÍCIOS (carrossel contínuo: 4 conjuntos idênticos, só o primeiro é lido por leitores de tela) -->
+<!-- BARRA DE BENEFÍCIOS -->
 <div class="benefits-bar">
   <div class="benefits-container">
     <div class="benefits-set">
@@ -107,11 +106,17 @@
   <!-- CAPA -->
   <section class="hero" id="inicio">
     <div class="hero-content">
-      <small>Semijoias que contam histórias</small>
-      <h1>A beleza está nos detalhes.</h1>
+      <small>
+        <span class="normal-only">Semijoias que contam histórias</span>
+        <span class="natal-only">Catálogo de Natal 2026</span>
+      </small>
+      <h1>
+        <span class="normal-only">A beleza está nos detalhes.</span>
+        <span class="natal-only">Presentes que brilham no Natal.</span>
+      </h1>
       <p>
-        Descubra uma seleção especial de semijoias pensadas para valorizar sua essência,
-        elegância e personalidade com todo o cuidado e afeto.
+        <span class="normal-only">Descubra uma seleção especial de semijoias pensadas para valorizar sua essência, elegância e personalidade com todo o cuidado e afeto.</span>
+        <span class="natal-only">Descubra semijoias para presentear quem você ama ou para brilhar nas festas de fim de ano, com todo o cuidado e afeto de sempre.</span>
       </p>
       <a href="#colecao" class="btn">Conheça as peças</a>
     </div>
@@ -148,7 +153,7 @@
     <div class="load-more-wrap" id="loadMoreWrap"></div>
   </section>
 
-  <!-- COMO COMPRAR E INFORMAÇÕES DA LOJA (os dados ficam em INFO_LOJA, no script.js) -->
+  <!-- COMO COMPRAR -->
   <section class="how" id="como-comprar">
     <div class="section-title">
       <span>Simples e direto</span>
@@ -207,8 +212,7 @@
       <p>
         Professora, mãe, esposa e, agora, empreendedora no universo das semijoias. Transformei uma paixão antiga em propósito: levar mais brilho, elegância e autoestima para o dia a dia das mulheres através de peças escolhidas com carinho.
         <br><br>
-        Cada peça que você encontra por aqui carrega uma intenção: celebrar momentos,
-        realçar a sua beleza natural e contar histórias através do brilho.
+        Cada peça que você encontra por aqui carrega uma intenção: celebrar momentos, realçar a sua beleza natural e contar histórias através do brilho.
       </p>
       <div class="social-actions">
         <a href="https://www.instagram.com/aline_a_borges_" target="_blank" rel="noopener noreferrer" class="btn secondary">
@@ -260,6 +264,7 @@
 
 <!-- RODAPÉ -->
 <footer>
+  <p class="natal-feliz natal-only">Feliz Natal e boas festas!</p>
   <div class="logo">ALINE JOIAS</div>
   <p>© <span id="ano">2026</span> Aline Joias · Feito com cuidado e exclusividade.</p>
   <p class="footer-contact">WhatsApp: <a id="footerWpp" href="#" target="_blank" rel="noopener noreferrer"></a></p>

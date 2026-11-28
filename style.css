@@ -118,7 +118,7 @@ nav a:hover { color: var(--dourado-escuro); }
 .benefits-bar {
   background: var(--offwhite);
   border-bottom: 1px solid var(--dourado-claro);
-  padding: 12px 0;
+  padding: 8px 0;
   overflow: hidden;
   white-space: nowrap;
   position: relative;
