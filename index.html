@@ -5,9 +5,13 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="theme-color" content="#7A1426">
 
-<!-- SEGURANÇA E PRIVACIDADE -->
+<!-- SEGURANÇA E PRIVACIDADE (COM PERMISSÃO PARA O GOOGLE ANALYTICS) -->
 <meta name="referrer" content="strict-origin-when-cross-origin">
-<meta http-equiv="Content-Security-Policy" content="default-src 'self'; style-src 'self' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https:; script-src 'self'; connect-src 'none'; object-src 'none'; base-uri 'self'; form-action 'self';">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; style-src 'self' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https: https://www.google-analytics.com https://www.googletagmanager.com; script-src 'self' https://www.googletagmanager.com; connect-src 'self' https://www.google-analytics.com https://*.google-analytics.com https://*.analytics.google.com https://www.googletagmanager.com; object-src 'none'; base-uri 'self'; form-action 'self';">
+
+<!-- GOOGLE ANALYTICS (G-6L52KDC3JQ) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-6L52KDC3JQ"></script>
+<script src="analytics.js" defer></script>
 
 <!-- TÍTULO E DESCRIÇÕES -->
 <title>Aline Joias | Catálogo de Natal 2026</title>
@@ -17,7 +21,7 @@
 <!-- ÍCONE DA ABA -->
 <link rel="icon" type="image/png" href="image/logo.png">
 
-<!-- PRÉVIA AO COMPARTILHAR O LINK -->
+<!-- PRÉVIA AO COMPARTILHAR O LINK (USANDO natal.webp) -->
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Aline Joias">
 <meta property="og:locale" content="pt_BR">
@@ -39,7 +43,8 @@
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Great+Vibes&family=Montserrat:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Great+Vibes&family=Montserrat:wght@400;500;600&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Great+Vibes&family=Montserrat:wght@400;500;600&display=swap" media="print" onload="this.media='all'">
 <link rel="stylesheet" href="style.css">
 <link rel="stylesheet" href="natal.css">
 <script src="script.js" defer></script>
@@ -269,7 +274,7 @@
   <p>© <span id="ano">2026</span> Aline Joias · Feito com cuidado e exclusividade.</p>
   <p class="footer-contact">WhatsApp: <a id="footerWpp" href="#" target="_blank" rel="noopener noreferrer"></a></p>
   <p class="privacy-note">
-    Privacidade &amp; Segurança (LGPD): este catálogo digital não coleta dados pessoais, não armazena informações financeiras e não utiliza cookies de rastreamento próprios. Fontes e algumas imagens são carregadas de serviços externos (Google Fonts e Unsplash). Todo atendimento é realizado diretamente pelos canais oficiais verificados.
+    Privacidade &amp; Segurança (LGPD): este catálogo digital não coleta dados pessoais identificáveis nem armazena informações financeiras. Utilizamos apenas o Google Analytics para estatísticas anónimas de acesso e melhoria da experiência de navegação. Todo atendimento é realizado diretamente pelos canais oficiais verificados.
   </p>
 </footer>
 
