@@ -19,6 +19,29 @@ body.tema-natal {
 
 .hero { position: relative; overflow: hidden; }
 
+/* ---------- Cabeçalho em vermelho no Tema de Natal ---------- */
+body.tema-natal header {
+  background-color: var(--vermelho);
+  border-bottom: 2px solid var(--dourado-claro);
+}
+
+body.tema-natal header .brand-tag {
+  color: #F2D49B;
+}
+
+body.tema-natal header .logo {
+  color: #FFFFFF;
+}
+
+body.tema-natal header .menu-toggle {
+  background: transparent;
+  border-color: rgba(255, 255, 255, 0.4);
+}
+
+body.tema-natal header .menu-bar {
+  background: #FFFFFF;
+}
+
 /* ---------- Barra de benefícios em verde ---------- */
 body.tema-natal .benefits-bar { background: var(--verde); border-bottom: 1px solid var(--dourado); }
 body.tema-natal .benefits-container { color: #F7F2E8; }
@@ -90,81 +113,38 @@ body.tema-natal footer { background: var(--verde); border-top: 6px solid var(--v
   margin-bottom: 8px;
 }
 
-/* ---------- Neve ---------- */
-.natal-neve { position: fixed; inset: 0; z-index: 60; pointer-events: none; overflow: hidden; }
-.natal-neve.off { display: none; }
-
-.floco {
-  position: absolute;
-  top: -24px;
-  left: var(--x);
-  font-size: var(--s);
-  color: #dbeafe;
-  text-shadow: 0 0 2px #3b6ea5, 0 0 5px rgba(59, 110, 165, .6);
-  opacity: var(--o);
-  animation: cair var(--t) linear var(--a) infinite;
+/* ---------- Cores do Menu (Desktop vs Celular) ---------- */
+@media (min-width: 769px) {
+  body.tema-natal header nav a {
+    color: #FFFFFF !important;
+  }
+  body.tema-natal header nav a:hover {
+    color: #F2D49B !important;
+  }
 }
-
-@keyframes cair {
-  from { transform: translate3d(0, -5vh, 0) rotate(0deg); }
-  to   { transform: translate3d(var(--dx), 108vh, 0) rotate(360deg); }
-}
-
-/* Botão para ligar e desligar a neve */
-.natal-neve-btn {
-  position: fixed;
-  left: 18px;
-  bottom: calc(18px + env(safe-area-inset-bottom, 0px));
-  z-index: 90;
-  width: 46px;
-  height: 46px;
-  border-radius: 50%;
-  border: 2px solid #fff;
-  background: var(--vermelho);
-  color: #fff;
-  font-size: 18px;
-  line-height: 1;
-  cursor: pointer;
-  box-shadow: 0 8px 22px rgba(122, 20, 38, .4);
-}
-
-.natal-neve-btn[aria-pressed="false"] { background: #6b7280; }
 
 /* ---------- Celular ---------- */
 @media (max-width: 768px) {
-  .hero { min-height: 400px; /* Reduz a altura da capa no celular (ajuste este valor se quiser mais ou menos alto) */ }
-  .natal-feliz { font-size: 32px; }
-  body.tema-natal .hero .btn { margin-right: 0; }
-}
-/* ---------- Cabeçalho em vermelho no Tema de Natal ---------- */
-body.tema-natal header {
-  background-color: var(--vermelho);
-  border-bottom: 2px solid var(--dourado-claro);
-}
-
-/* Ajusta as cores dos textos e links do cabeçalho para ficarem brancos sobre o fundo vermelho */
-body.tema-natal header .brand-tag {
-  color: #F2D49B; /* Dourado clarinho para destacar */
-}
-
-body.tema-natal header .logo {
-  color: #FFFFFF;
-}
-
-body.tema-natal header nav a {
-  color: #FFFFFF;
-}
-
-body.tema-natal header nav a:hover {
-  color: #F2D49B;
-}
-
-/* Botão do menu mobile e suas barrinhas no cabeçalho */
-body.tema-natal header .menu-toggle {
-  background: transparent;
-  border-color: rgba(255, 255, 255, 0.4);
-}
-
-body.tema-natal header .menu-bar {
-  background: #FFFFFF;
+  body.tema-natal header nav a,
+  body.tema-natal .nav-colecao-btn,
+  body.tema-natal .nav-sub a {
+    color: #7A1426 !important;
+  }
+  body.tema-natal header nav a:hover,
+  body.tema-natal .nav-colecao-btn:hover,
+  body.tema-natal .nav-sub a:hover {
+    color: #9B1C31 !important;
+  }
+  .benefits-bar {
+    padding: 6px 0;
+  }
+  .hero { 
+    min-height: 400px; 
+  }
+  .natal-feliz { 
+    font-size: 32px; 
+  }
+  body.tema-natal .hero .btn { 
+    margin-right: 0; 
+  }
 }
