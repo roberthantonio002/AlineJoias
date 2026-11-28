@@ -2,6 +2,8 @@
    ALINE JOIAS · Estilos
    ========================================================== */
 
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
 :root {
   --cafe: #65351F;
   --branco: #FFFFFF;
@@ -13,8 +15,6 @@
 }
 
 /* ---------- BASE ---------- */
-* { margin: 0; padding: 0; box-sizing: border-box; }
-
 html {
   scroll-behavior: smooth;
   scroll-padding-top: 120px; /* evita o cabeçalho fixo cobrir o título da seção */
@@ -649,7 +649,8 @@ section { padding: 85px 8%; }
   border: 1px solid var(--dourado-claro);
 }
 
-.trust-badge-item h4 { font-family: 'Cormorant Garamond', serif; font-size: 22px; color: var(--cafe); margin-bottom: 10px; }
+.trust-badge-item h4,
+.trust-badge-item h3 { font-family: 'Cormorant Garamond', serif; font-size: 22px; color: var(--cafe); margin-bottom: 10px; }
 .trust-badge-item p { font-size: 13px; margin-bottom: 0; line-height: 1.6; }
 
 /* ---------- BANNER DE NOVIDADES ---------- */
@@ -747,6 +748,7 @@ footer .privacy-note {
   gap: 20px;
   max-width: 960px;
   margin: 0 auto 40px;
+  align-items: stretch; /* Alinha perfeitamente a altura dos blocos */
 }
 
 .store-info:empty { display: none; }
@@ -757,6 +759,9 @@ footer .privacy-note {
   border-radius: 3px;
   padding: 22px;
   text-align: left;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
 }
 
 .info-item h4 { font-family: 'Cormorant Garamond', serif; font-size: 22px; color: var(--cafe); margin-bottom: 6px; }
